@@ -57,6 +57,10 @@ const globalStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  containerSpinner: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   titles: {
     fontSize: 28,
     color: PRIMARY_COLOR,

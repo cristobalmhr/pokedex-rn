@@ -5,8 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {DASHBOARD_SCREEN, SEARCH_SCREEN} from './../utils/Screens';
 import {DISABLED_COLOR, ICONS_COLOR, BACKGROUND_COLOR} from './../utils/Colors';
-import DashboardScreen from '../screens/DashboardScreen';
 import SearchScreen from '../screens/SearchScreen';
+import PrincipalStackNavigator from './PrincipalStackNavigation';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -18,13 +18,13 @@ const Tab = createMaterialBottomTabNavigator();
 const TabBarNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName={DashboardScreen}
+      initialRouteName={PrincipalStackNavigator}
       activeColor={ICONS_COLOR}
       inactiveColor={DISABLED_COLOR}
       barStyle={{backgroundColor: BACKGROUND_COLOR}}>
       <Tab.Screen
         name={DASHBOARD_SCREEN}
-        component={DashboardScreen}
+        component={PrincipalStackNavigator}
         options={{
           tabBarLabel: 'Inicio',
           tabBarIcon: ({color}) => (

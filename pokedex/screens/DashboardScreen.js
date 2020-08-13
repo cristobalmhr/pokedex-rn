@@ -11,7 +11,8 @@ import {ICONS_COLOR} from '../utils/Colors';
 import {getPokemonList} from './../services/PokeApiService';
 import PokemonRowsList from '../components/PokemonRowsList';
 import PokemonCardsList from '../components/PokemonCardsList';
-
+import {DETAILS_SCREEN} from './../utils/Screens';
+import ActivityIndicator from './../components/ActivityIndicator';
 /**
  * Pantalla de dashboard principal para mostrar lista de pokemon
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
@@ -19,7 +20,7 @@ import PokemonCardsList from '../components/PokemonCardsList';
  * @param navigation - Navegacion de React Navigation
  */
 const DashboardScreen = ({navigation}) => {
-  const [listView, setListView] = useState(false);
+  const [listView, setListView] = useState(true);
   const [loading, setLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
 
@@ -43,9 +44,11 @@ const DashboardScreen = ({navigation}) => {
     setListView(!listView);
   };
 
-  const showPokemonDetails = (item, index) => {
-    console.log('item', item);
+  const showPokemonDetails = (index) => {
     console.log('index', index);
+    navigation.navigate(DETAILS_SCREEN, {
+      idPokemon: index,
+    });
   };
 
   return (
@@ -71,7 +74,9 @@ const DashboardScreen = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      {listView ? (
+      {loading ? (
+        <ActivityIndicator />
+      ) : listView ? (
         <PokemonRowsList
           pokemonList={pokemonList}
           showPokemonDetails={showPokemonDetails}

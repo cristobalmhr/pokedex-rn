@@ -4,7 +4,7 @@ import {StatusBar} from 'react-native';
 
 //EXTERNAL
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 //INTERNAL

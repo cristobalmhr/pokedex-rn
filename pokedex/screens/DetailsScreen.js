@@ -12,8 +12,10 @@ import PropTypes from 'prop-types';
  * @version 1.0 - 13/08/2020
  * @param navigation - Navegacion de React Navigation
  */
-const DetailsScreen = ({navigation, idPokemon}) => {
-  return <Text>Details Search</Text>;
+const DetailsScreen = ({navigation, route}) => {
+  const {idPokemon} = route.params;
+
+  return <Text>Details Search {idPokemon}</Text>;
 };
 
 DetailsScreen.propTypes = {

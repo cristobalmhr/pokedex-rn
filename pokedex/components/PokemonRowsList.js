@@ -23,7 +23,7 @@ const PokemonRowsList = ({pokemonList, showPokemonDetails}) => {
         ListFooterComponent={<View style={globalStyles.marginBottomLarge} />}
         data={pokemonList}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={() => showPokemonDetails(item, index)}>
+          <TouchableOpacity onPress={() => showPokemonDetails(index + 1)}>
             <PokemonItemHorizontal item={item} index={index} />
           </TouchableOpacity>
         )}
