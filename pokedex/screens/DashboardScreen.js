@@ -1,18 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
 
 //EXTERNAL
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import * as Animatable from 'react-native-animatable';
+import PropTypes from 'prop-types';
 
 //INTERNAL
 import globalStyles from './../styles/globalStyles';
 import {ICONS_COLOR} from '../utils/Colors';
 import {getPokemonList} from './../services/PokeApiService';
-import PokemonItemHorizontal from '../components/PokemonItemHorizontal';
+import PokemonRowsList from '../components/PokemonRowsList';
+import PokemonCardsList from '../components/PokemonCardsList';
 
-const DashboardScreen = () => {
-  const [listView, setListView] = useState(true);
+/**
+ * Pantalla de dashboard principal para mostrar lista de pokemon
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ * @param navigation - Navegacion de React Navigation
+ */
+const DashboardScreen = ({navigation}) => {
+  const [listView, setListView] = useState(false);
   const [loading, setLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
 
@@ -37,9 +44,8 @@ const DashboardScreen = () => {
   };
 
   const showPokemonDetails = (item, index) => {
-      console.log("item", item);
-      console.log("index", index)
-
+    console.log('item', item);
+    console.log('index', index);
   };
 
   return (
@@ -65,20 +71,23 @@ const DashboardScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      <Animatable.View animation="fadeInUp">
-        <FlatList
-          ListFooterComponent={<View style={globalStyles.marginBottomLarge} />}
-          data={pokemonList}
-          renderItem={({item, index}) => (
-            <TouchableOpacity onPress={() => showPokemonDetails(item, index)}>
-              <PokemonItemHorizontal item={item} index={index} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item) => item.name}
+      {listView ? (
+        <PokemonRowsList
+          pokemonList={pokemonList}
+          showPokemonDetails={showPokemonDetails}
         />
-      </Animatable.View>
+      ) : (
+        <PokemonCardsList
+          pokemonList={pokemonList}
+          showPokemonDetails={showPokemonDetails}
+        />
+      )}
     </>
   );
+};
+
+DashboardScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 };
 
 export default DashboardScreen;

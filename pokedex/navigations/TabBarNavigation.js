@@ -4,19 +4,24 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {DASHBOARD_SCREEN, SEARCH_SCREEN} from './../utils/Screens';
-import {DISABLED_COLOR, ICONS_COLOR} from './../utils/Colors';
+import {DISABLED_COLOR, ICONS_COLOR, BACKGROUND_COLOR} from './../utils/Colors';
 import DashboardScreen from '../screens/DashboardScreen';
 import SearchScreen from '../screens/SearchScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
+/**
+ * Navegacion de tabbar
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 12/08/2020
+ */
 const TabBarNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName={DashboardScreen}
       activeColor={ICONS_COLOR}
       inactiveColor={DISABLED_COLOR}
-      barStyle={{backgroundColor: 'white'}}>
+      barStyle={{backgroundColor: BACKGROUND_COLOR}}>
       <Tab.Screen
         name={DASHBOARD_SCREEN}
         component={DashboardScreen}

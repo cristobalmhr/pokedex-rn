@@ -11,34 +11,31 @@ import {urlPokeresImages, fileTypePokeresImages} from './../utils/DataServices';
 import {fistLetterToUperCase} from './../utils/General';
 
 /**
- * Componente para mostrar un pokemon de manera horizontal
+ * Componente para mostrar un pokemon en forma de card
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param item - Objeto con la informacion del pokemon
  * @param index - Posicion del objeto en la lista
  */
-const PokemonItemHorizontal = ({item, index}) => {
+const PokemonItemCard = ({item, index}) => {
   return (
-    <View style={globalStyles.containerPokemonList}>
-      <View style={globalStyles.containerPokemonDetailsList}>
+    <View style={globalStyles.containerPokemonCard}>
+      <View style={globalStyles.containerPokemonDetailsCard}>
         <Image
           resizeMode={'cover'}
           style={{
-            width: widthPercentageToDP('15%'),
-            height: widthPercentageToDP('15%'),
+            width: widthPercentageToDP('20%'),
+            height: widthPercentageToDP('20%'),
           }}
           source={{
             uri: `${urlPokeresImages}${index + 1}${fileTypePokeresImages}`,
           }}
         />
-        <View>
-          <Text style={globalStyles.pokemonNameList}>
-            {fistLetterToUperCase(item.name)}
-          </Text>
-          <Text style={globalStyles.smallText}>1era generación</Text>
-        </View>
+        <Text numberOfLines={1} style={globalStyles.pokemonNameCard}>
+          {fistLetterToUperCase(item.name)}
+        </Text>
       </View>
-      <View style={globalStyles.pokemonNumber}>
+      <View style={[globalStyles.pokemonNumber, globalStyles.marginSmall]}>
         <Text style={globalStyles.secondaryColor}>{`#${(index + 1)
           .toString()
           .padStart(3, '0')}`}</Text>
@@ -47,9 +44,9 @@ const PokemonItemHorizontal = ({item, index}) => {
   );
 };
 
-PokemonItemHorizontal.propTypes = {
+PokemonItemCard.propTypes = {
   item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
 };
 
-export default PokemonItemHorizontal;
+export default PokemonItemCard;

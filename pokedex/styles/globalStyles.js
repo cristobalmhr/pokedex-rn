@@ -14,6 +14,11 @@ import {
   BACKGROUND_LIGHT_COLOR,
 } from './../utils/Colors';
 
+/**
+ * @description - Hoja de estilos global
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ */
 const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -25,6 +30,18 @@ const globalStyles = StyleSheet.create({
   },
   containerTitle: {
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  containerPokemonCard: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 5,
+    margin: wp('2%'),
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: wp('29%'),
+  },
+  containerPokemonDetailsCard: {
     alignItems: 'center',
   },
   containerPokemonList: {
@@ -63,6 +80,10 @@ const globalStyles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 10,
   },
+  pokemonNameCard: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
   pokemonNumber: {
     marginRight: 10,
     padding: 4,
@@ -82,6 +103,9 @@ const globalStyles = StyleSheet.create({
   },
   secondaryColor: {
     color: SECONDARY_COLOR,
+  },
+  marginSmall: {
+    margin: 5,
   },
 });
 

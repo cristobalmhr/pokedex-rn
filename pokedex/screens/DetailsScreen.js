@@ -7,17 +7,17 @@ import {Text} from 'react-native';
 import PropTypes from 'prop-types';
 
 /**
- * Pantalla para buscar pokemon
+ * Pantalla para mostrar el detalle del pokemon
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param navigation - Navegacion de React Navigation
  */
-const SearchScreen = ({navigation, idPokemon}) => {
-  return <Text>Search screen</Text>;
+const DetailsScreen = ({navigation, idPokemon}) => {
+  return <Text>Details Search</Text>;
 };
 
-SearchScreen.propTypes = {
+DetailsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default SearchScreen;
+export default DetailsScreen;
