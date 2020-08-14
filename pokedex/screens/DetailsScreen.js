@@ -26,6 +26,7 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param navigation - Navegacion de React Navigation
+ * @param route - Objeto con los parametros que recibe la pantalla
  */
 const DetailsScreen = ({navigation, route}) => {
   const {idPokemon, name} = route.params;

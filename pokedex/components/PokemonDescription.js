@@ -11,6 +11,15 @@ import {urlPokeresImages, fileTypePokeresImages} from './../utils/DataServices';
 import {fistLetterToUperCase} from '../utils/General';
 import ActivityIndicator from '../components/ActivityIndicator';
 
+/**
+ * Componente para mostrar la informacion principal del pokemon
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ * @param idPokemon - Identificador del pokemon
+ * @param name - Nombre del pokemon
+ * @param loadingDescription - Booleano para indicar la carga
+ * @param description - Descripcion del pokemon
+ */
 const PokemonDescription = ({
   idPokemon,
   name,
@@ -45,6 +54,13 @@ const PokemonDescription = ({
       </View>
     </View>
   );
+};
+
+PokemonDescription.propTypes = {
+  idPokemon: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  loadingDescription: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default PokemonDescription;

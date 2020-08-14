@@ -11,7 +11,7 @@ import {fistLetterToUperCase} from '../utils/General';
 import {DETAILS_SCREEN} from '../utils/Screens';
 
 /**
- * Pantalla para mostrar el detalle del pokemon
+ * Componente para mostrar la lista de evoluciones
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param evolutions - Lista de evoluciones del pokemon

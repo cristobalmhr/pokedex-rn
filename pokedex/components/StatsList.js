@@ -16,7 +16,7 @@ import {ICONS_COLOR, BACKGROUND_COLOR, DISABLED_COLOR} from '../utils/Colors';
  * Componente para mostrar las estadisticas de un pokemon
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
- * @param abilities - Lista de habilidades
+ * @param stats - Lista de habilidades
  */
 const StatsList = ({stats}) => {
   return (

@@ -56,6 +56,12 @@ export const getPokemonDetails = (idPokemon) => {
   });
 };
 
+/**
+ * @description - Recuperar detalles de un pokemon de especie
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ * @param idPokemon - Identificador del pokemon a recuperar
+ */
 export const getPokemonSpeciesDetails = (idPokemon) => {
   console.log('idPokemon API', idPokemon);
 
@@ -77,6 +83,12 @@ export const getPokemonSpeciesDetails = (idPokemon) => {
   });
 };
 
+/**
+ * @description - Recuperar la cadena evolutiva de un pokemon
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ * @param idPokemon - Identificador del pokemon a recuperar
+ */
 export const getEvolutionDetails = (url) => {
   return new Promise((resolve, reject) => {
     axios({

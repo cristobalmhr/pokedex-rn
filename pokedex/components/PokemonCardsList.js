@@ -10,7 +10,7 @@ import globalStyles from './../styles/globalStyles';
 import PokemonItemCard from '../components/PokemonItemCard';
 
 /**
- * Componente para iterar una lista de pokemon e forma de cards
+ * Componente para iterar una lista de pokemon en forma de cards
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param pokemonList - Lista de pokemon a iterar
