@@ -92,6 +92,25 @@ const globalStyles = StyleSheet.create({
     borderRadius: 35,
     paddingVertical: 10,
   },
+  containerBusqueda: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  searchImage: {
+    width: wp('35%'),
+    height: wp('35%'),
+    marginTop: wp('35%'),
+  },
+  marginTopIndicator: {
+    marginTop: wp('35%'),
+  },
+  searchText: {
+    textAlign: 'center',
+    marginHorizontal: wp('20%'),
+    marginTop: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   selectedContainerEvolution: {
     backgroundColor: BACKGROUND_LIGHT_COLOR,
     borderWidth: 1,

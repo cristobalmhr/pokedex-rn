@@ -10,13 +10,13 @@ import globalStyles from './../styles/globalStyles';
 import PokemonItemHorizontal from '../components/PokemonItemHorizontal';
 
 /**
- * Componente para iterar una lista de pokemon en forma de filas
+ * Componente para iterar una lista de pokemon para la busqueda de autocomplete
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
  * @version 1.0 - 13/08/2020
  * @param pokemonList - Lista de pokemon a iterar
  * @param showPokemonDetails - Funcion para mostrar el detalle del pokemon
  */
-const PokemonRowsList = ({pokemonList, showPokemonDetails}) => {
+const PokemonSearchList = ({pokemonList, showPokemonDetails}) => {
   return (
     <Animatable.View animation="fadeInUp">
       <FlatList
@@ -24,11 +24,16 @@ const PokemonRowsList = ({pokemonList, showPokemonDetails}) => {
         data={pokemonList}
         renderItem={({item, index}) => (
           <TouchableOpacity
-            onPress={() => showPokemonDetails(index + 1, item.name)}>
+            onPress={() =>
+              showPokemonDetails(
+                item.pokedex_numbers[0].entry_number,
+                item.name,
+              )
+            }>
             <PokemonItemHorizontal
               item={item}
-              index={index}
-              showGeneration={true}
+              index={item.pokedex_numbers[0].entry_number - 1}
+              showGeneration ={false}
             />
           </TouchableOpacity>
         )}
@@ -38,9 +43,9 @@ const PokemonRowsList = ({pokemonList, showPokemonDetails}) => {
   );
 };
 
-PokemonRowsList.propTypes = {
+PokemonSearchList.propTypes = {
   pokemonList: PropTypes.array.isRequired,
   showPokemonDetails: PropTypes.func.isRequired,
 };
 
-export default PokemonRowsList;
+export default PokemonSearchList;

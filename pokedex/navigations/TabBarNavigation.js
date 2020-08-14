@@ -3,10 +3,11 @@ import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {DASHBOARD_SCREEN, SEARCH_SCREEN} from './../utils/Screens';
+import {PRINCIPAL_TAB, SEARCH_TAB} from './../utils/Screens';
 import {DISABLED_COLOR, ICONS_COLOR, BACKGROUND_COLOR} from './../utils/Colors';
 import SearchScreen from '../screens/SearchScreen';
 import PrincipalStackNavigator from './PrincipalStackNavigation';
+import SearchStackNavigator from './SearchStackNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const TabBarNavigation = () => {
       inactiveColor={DISABLED_COLOR}
       barStyle={{backgroundColor: BACKGROUND_COLOR}}>
       <Tab.Screen
-        name={DASHBOARD_SCREEN}
+        name={PRINCIPAL_TAB}
         component={PrincipalStackNavigator}
         options={{
           tabBarLabel: 'Home',
@@ -33,8 +34,8 @@ const TabBarNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={SEARCH_SCREEN}
-        component={SearchScreen}
+        name={SEARCH_TAB}
+        component={SearchStackNavigator}
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({color}) => (

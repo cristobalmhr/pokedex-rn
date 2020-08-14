@@ -16,8 +16,11 @@ import {fistLetterToUperCase} from './../utils/General';
  * @version 1.0 - 13/08/2020
  * @param item - Objeto con la informacion del pokemon
  * @param index - Posicion del objeto en la lista
+ * @param showGeneration - Booleano para mostrar la generacion
  */
-const PokemonItemHorizontal = ({item, index}) => {
+const PokemonItemHorizontal = ({item, index, showGeneration}) => {
+  console.log('index: ', index);
+
   return (
     <View style={globalStyles.containerPokemonList}>
       <View style={globalStyles.containerPokemonDetailsList}>
@@ -35,7 +38,9 @@ const PokemonItemHorizontal = ({item, index}) => {
           <Text style={globalStyles.pokemonNameList}>
             {fistLetterToUperCase(item.name)}
           </Text>
-          <Text style={globalStyles.smallText}>1st generation</Text>
+          {showGeneration && (
+            <Text style={globalStyles.smallText}>1st generation</Text>
+          )}
         </View>
       </View>
       <View style={globalStyles.pokemonNumber}>
@@ -50,6 +55,7 @@ const PokemonItemHorizontal = ({item, index}) => {
 PokemonItemHorizontal.propTypes = {
   item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
+  showGeneration: PropTypes.bool.isRequired,
 };
 
 export default PokemonItemHorizontal;

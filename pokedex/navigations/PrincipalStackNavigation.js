@@ -10,8 +10,6 @@ const PrincipalStackNavigatorRn = createStackNavigator();
 const PrincipalStackNavigator = ({navigation}) => (
   <PrincipalStackNavigatorRn.Navigator
     screenOptions={{
-      headerShown: true,
-      headerTransparent: true,
       ...TransitionPresets.SlideFromRightIOS,
     }}>
     <PrincipalStackNavigatorRn.Screen
