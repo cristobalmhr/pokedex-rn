@@ -76,6 +76,25 @@ const globalStyles = StyleSheet.create({
   containerSpinner: {
     flex: 1,
     justifyContent: 'center',
+    marginBottom: 20,
+  },
+  containerProgressBar: {
+    width: wp('40%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  containerEvolution: {
+    width: wp('25%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: ICONS_COLOR,
+    borderRadius: 35,
+    paddingVertical: 10,
+  },
+  selectedContainerEvolution: {
+    backgroundColor: BACKGROUND_LIGHT_COLOR,
+    borderWidth: 1,
   },
   titles: {
     fontSize: 28,
@@ -89,6 +108,7 @@ const globalStyles = StyleSheet.create({
     color: ICONS_COLOR,
     marginHorizontal: 10,
     marginVertical: 5,
+    marginBottom: 15,
     fontWeight: 'bold',
   },
   subtitles2: {
@@ -97,6 +117,11 @@ const globalStyles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
     fontWeight: '600',
+  },
+  subtitles3: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: PRIMARY_COLOR,
   },
   titleName: {
     fontSize: 20,
@@ -161,6 +186,9 @@ const globalStyles = StyleSheet.create({
   },
   widthFakeItemHeader: {
     width: 50,
+  },
+  fontSizeProgressBar: {
+    fontSize: 18,
   },
 });
 

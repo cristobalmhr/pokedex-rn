@@ -57,6 +57,8 @@ export const getPokemonDetails = (idPokemon) => {
 };
 
 export const getPokemonSpeciesDetails = (idPokemon) => {
+  console.log('idPokemon API', idPokemon);
+
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',

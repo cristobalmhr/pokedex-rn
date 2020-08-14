@@ -35,7 +35,7 @@ const PokemonItemHorizontal = ({item, index}) => {
           <Text style={globalStyles.pokemonNameList}>
             {fistLetterToUperCase(item.name)}
           </Text>
-          <Text style={globalStyles.smallText}>1era generación</Text>
+          <Text style={globalStyles.smallText}>1st generation</Text>
         </View>
       </View>
       <View style={globalStyles.pokemonNumber}>

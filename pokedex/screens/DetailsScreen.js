@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Image, ScrollView, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  ScrollView,
+  FlatList,
+  LogBox,
+  TouchableOpacity,
+} from 'react-native';
 
 //EXTERNAL
 import PropTypes from 'prop-types';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
+import ProgressCircle from 'react-native-progress-circle';
 
 //INTERNAL
 import {
@@ -16,6 +25,10 @@ import {urlPokeresImages, fileTypePokeresImages} from './../utils/DataServices';
 import BackButton from '../components/BackButton';
 import {fistLetterToUperCase} from '../utils/General';
 import ActivityIndicator from '../components/ActivityIndicator';
+import {ICONS_COLOR, BACKGROUND_COLOR, DISABLED_COLOR} from '../utils/Colors';
+import {DETAILS_SCREEN} from '../utils/Screens';
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 /**
  * Pantalla para mostrar el detalle del pokemon
@@ -48,12 +61,10 @@ const DetailsScreen = ({navigation, route}) => {
       const pokemon = await getPokemonDetails(idPokemon);
 
       const abilitiesResponse = pokemon.abilities;
-      console.log('Habilidades: ', abilitiesResponse);
       setAbilities(abilitiesResponse);
       setLoadingAbilities(false);
 
       const statsResponse = pokemon.stats;
-      console.log('Estadisticas: ', statsResponse);
       setStats(statsResponse);
       setLoadingStats(false);
     } catch (error) {
@@ -66,16 +77,11 @@ const DetailsScreen = ({navigation, route}) => {
   const callGetPokemonSpeciesDetails = async () => {
     try {
       const pokemon = await getPokemonSpeciesDetails(idPokemon);
-      console.log(
-        'Detalles Pokemon: ',
-        pokemon.flavor_text_entries[0].flavor_text,
-      );
 
       const descriptionResponse = pokemon.flavor_text_entries[0].flavor_text
         .replace('\n', ' ')
         .replace('\f', ' ');
 
-      console.log('descriptionResponse ', descriptionResponse);
       setDescription(descriptionResponse);
       setLoadingDescription(false);
 
@@ -93,19 +99,42 @@ const DetailsScreen = ({navigation, route}) => {
 
       let responseEvolution = evolutionDetails.chain;
 
-      evolutionsResponse.push(responseEvolution.species.name);
+      let pokemonId = await getPokemonId(responseEvolution.species.name);
+
+      evolutionsResponse.push({
+        name: responseEvolution.species.name,
+        id: pokemonId,
+        url: `${urlPokeresImages}${pokemonId}${fileTypePokeresImages}`,
+      });
 
       while (responseEvolution.evolves_to.length > 0) {
-        evolutionsResponse.push(responseEvolution.evolves_to[0].species.name);
+        pokemonId = await getPokemonId(
+          responseEvolution.evolves_to[0].species.name,
+        );
+
+        evolutionsResponse.push({
+          name: responseEvolution.evolves_to[0].species.name,
+          id: pokemonId,
+          url: `${urlPokeresImages}${pokemonId}${fileTypePokeresImages}`,
+        });
         const arregloEvoluciones = responseEvolution.evolves_to[0].evolves_to;
         responseEvolution = {evolves_to: arregloEvoluciones};
       }
 
       setEvolutions(evolutionsResponse);
       setLoadingEvolutions(false);
-      console.log('evolutionsResponse: ', evolutionsResponse);
     } catch (error) {
       setLoadingEvolutions(false);
+      console.log('error: ', error.message);
+    }
+  };
+
+  const getPokemonId = async (pokemonName) => {
+    try {
+      const pokemonResponse = await getPokemonSpeciesDetails(pokemonName);
+      const idPokemonResponse = pokemonResponse.pokedex_numbers[0].entry_number;
+      return idPokemonResponse;
+    } catch (error) {
       console.log('error: ', error.message);
     }
   };
@@ -114,7 +143,8 @@ const DetailsScreen = ({navigation, route}) => {
     <View style={globalStyles.container}>
       <View style={globalStyles.containerPokemonTitle}>
         <BackButton navigation={navigation} />
-        <Text style={globalStyles.pokemonNumber}>{`#${(idPokemon + 1)
+        <Text
+          style={globalStyles.pokemonNumber}>{`#${idPokemon
           .toString()
           .padStart(3, '0')}`}</Text>
         <View style={globalStyles.widthFakeItemHeader} />
@@ -170,6 +200,99 @@ const DetailsScreen = ({navigation, route}) => {
                 </View>
               )}
               keyExtractor={(item) => item.slot}
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
+        </View>
+
+        <View style={globalStyles.containerPokemonDetails}>
+          <Text style={[globalStyles.subtitles, globalStyles.marginLeftMedium]}>
+            Stats
+          </Text>
+          {!loadingStats ? (
+            <FlatList
+              ListFooterComponent={
+                <View style={globalStyles.marginBottomSmall} />
+              }
+              data={stats}
+              numColumns={2}
+              horizontal={false}
+              renderItem={({item, index}) => (
+                <View
+                  style={[
+                    globalStyles.containerProgressBar,
+                    globalStyles.marginLeftMedium,
+                  ]}>
+                  <ProgressCircle
+                    percent={item.base_stat / 2}
+                    radius={60}
+                    borderWidth={10}
+                    color={ICONS_COLOR}
+                    shadowColor={DISABLED_COLOR}
+                    bgColor={BACKGROUND_COLOR}>
+                    <Text
+                      style={
+                        globalStyles.fontSizeProgressBar
+                      }>{`${item.base_stat}`}</Text>
+                  </ProgressCircle>
+                  <Text style={globalStyles.subtitles2}>
+                    {fistLetterToUperCase(item.stat.name)}
+                  </Text>
+                </View>
+              )}
+              keyExtractor={(item) => item.stat.name}
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
+        </View>
+        <View
+          style={[
+            globalStyles.containerPokemonDetails,
+            globalStyles.marginBottomSmall,
+          ]}>
+          <Text style={[globalStyles.subtitles, globalStyles.marginLeftMedium]}>
+            Evolutions
+          </Text>
+          {!loadingEvolutions ? (
+            <FlatList
+              ListFooterComponent={
+                <View style={globalStyles.marginBottomSmall} />
+              }
+              data={evolutions}
+              numColumns={3}
+              horizontal={false}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.push(DETAILS_SCREEN, {
+                      idPokemon: item.id,
+                      name: item.name,
+                    });
+                  }}
+                  style={[
+                    globalStyles.containerEvolution,
+                    globalStyles.marginLeftMedium,
+                    item.id === idPokemon &&
+                      globalStyles.selectedContainerEvolution,
+                  ]}>
+                  <Image
+                    resizeMode={'cover'}
+                    style={{
+                      width: widthPercentageToDP('20%'),
+                      height: widthPercentageToDP('20%'),
+                    }}
+                    source={{
+                      uri: item.url,
+                    }}
+                  />
+                  <Text numberOfLines={1} style={globalStyles.subtitles3}>
+                    {fistLetterToUperCase(item.name)}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.id}
             />
           ) : (
             <ActivityIndicator />
