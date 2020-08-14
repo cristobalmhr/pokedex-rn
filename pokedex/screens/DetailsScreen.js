@@ -1,18 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Text,
-  View,
-  Image,
-  ScrollView,
-  FlatList,
-  LogBox,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, ScrollView, LogBox} from 'react-native';
 
 //EXTERNAL
 import PropTypes from 'prop-types';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
-import ProgressCircle from 'react-native-progress-circle';
 
 //INTERNAL
 import {
@@ -23,10 +13,11 @@ import {
 import globalStyles from '../styles/globalStyles';
 import {urlPokeresImages, fileTypePokeresImages} from './../utils/DataServices';
 import BackButton from '../components/BackButton';
-import {fistLetterToUperCase} from '../utils/General';
 import ActivityIndicator from '../components/ActivityIndicator';
-import {ICONS_COLOR, BACKGROUND_COLOR, DISABLED_COLOR} from '../utils/Colors';
-import {DETAILS_SCREEN} from '../utils/Screens';
+import AbilitiesList from '../components/AbilitiesList';
+import PokemonDescription from '../components/PokemonDescription';
+import StatsList from '../components/StatsList';
+import EvolutionsList from '../components/EvolutionsList';
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
@@ -150,57 +141,18 @@ const DetailsScreen = ({navigation, route}) => {
         <View style={globalStyles.widthFakeItemHeader} />
       </View>
       <ScrollView>
-        <View
-          style={[
-            globalStyles.containerDetailsPokemon,
-            globalStyles.containerPokemonDetails,
-          ]}>
-          <Image
-            resizeMode={'cover'}
-            style={{
-              width: widthPercentageToDP('35%'),
-              height: widthPercentageToDP('35%'),
-            }}
-            source={{
-              uri: `${urlPokeresImages}${idPokemon}${fileTypePokeresImages}`,
-            }}
-          />
-          <View>
-            <Text style={[globalStyles.titles, globalStyles.marginLeftMedium]}>
-              {fistLetterToUperCase(name)}
-            </Text>
-            {!loadingDescription ? (
-              <Text style={globalStyles.descriptionPokemon}>{description}</Text>
-            ) : (
-              <ActivityIndicator />
-            )}
-          </View>
-        </View>
+        <PokemonDescription
+          idPokemon={idPokemon}
+          name={name}
+          loadingDescription={loadingDescription}
+          description={description}
+        />
         <View style={globalStyles.containerPokemonDetails}>
           <Text style={[globalStyles.subtitles, globalStyles.marginLeftMedium]}>
             Abilities
           </Text>
           {!loadingAbilities ? (
-            <FlatList
-              ListFooterComponent={
-                <View style={globalStyles.marginBottomSmall} />
-              }
-              data={abilities}
-              numColumns={2}
-              horizontal={false}
-              renderItem={({item, index}) => (
-                <View
-                  style={[
-                    {width: widthPercentageToDP('40%')},
-                    globalStyles.marginLeftMedium,
-                  ]}>
-                  <Text style={globalStyles.subtitles2}>
-                    {fistLetterToUperCase(item.ability.name)}
-                  </Text>
-                </View>
-              )}
-              keyExtractor={(item) => item.slot}
-            />
+            <AbilitiesList abilities={abilities} />
           ) : (
             <ActivityIndicator />
           )}
@@ -210,42 +162,7 @@ const DetailsScreen = ({navigation, route}) => {
           <Text style={[globalStyles.subtitles, globalStyles.marginLeftMedium]}>
             Stats
           </Text>
-          {!loadingStats ? (
-            <FlatList
-              ListFooterComponent={
-                <View style={globalStyles.marginBottomSmall} />
-              }
-              data={stats}
-              numColumns={2}
-              horizontal={false}
-              renderItem={({item, index}) => (
-                <View
-                  style={[
-                    globalStyles.containerProgressBar,
-                    globalStyles.marginLeftMedium,
-                  ]}>
-                  <ProgressCircle
-                    percent={item.base_stat / 2}
-                    radius={60}
-                    borderWidth={10}
-                    color={ICONS_COLOR}
-                    shadowColor={DISABLED_COLOR}
-                    bgColor={BACKGROUND_COLOR}>
-                    <Text
-                      style={
-                        globalStyles.fontSizeProgressBar
-                      }>{`${item.base_stat}`}</Text>
-                  </ProgressCircle>
-                  <Text style={globalStyles.subtitles2}>
-                    {fistLetterToUperCase(item.stat.name)}
-                  </Text>
-                </View>
-              )}
-              keyExtractor={(item) => item.stat.name}
-            />
-          ) : (
-            <ActivityIndicator />
-          )}
+          {!loadingStats ? <StatsList stats={stats} /> : <ActivityIndicator />}
         </View>
         <View
           style={[
@@ -256,43 +173,10 @@ const DetailsScreen = ({navigation, route}) => {
             Evolutions
           </Text>
           {!loadingEvolutions ? (
-            <FlatList
-              ListFooterComponent={
-                <View style={globalStyles.marginBottomSmall} />
-              }
-              data={evolutions}
-              numColumns={3}
-              horizontal={false}
-              renderItem={({item, index}) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.push(DETAILS_SCREEN, {
-                      idPokemon: item.id,
-                      name: item.name,
-                    });
-                  }}
-                  style={[
-                    globalStyles.containerEvolution,
-                    globalStyles.marginLeftMedium,
-                    item.id === idPokemon &&
-                      globalStyles.selectedContainerEvolution,
-                  ]}>
-                  <Image
-                    resizeMode={'cover'}
-                    style={{
-                      width: widthPercentageToDP('20%'),
-                      height: widthPercentageToDP('20%'),
-                    }}
-                    source={{
-                      uri: item.url,
-                    }}
-                  />
-                  <Text numberOfLines={1} style={globalStyles.subtitles3}>
-                    {fistLetterToUperCase(item.name)}
-                  </Text>
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item) => item.id}
+            <EvolutionsList
+              evolutions={evolutions}
+              navigation={navigation}
+              idPokemon={idPokemon}
             />
           ) : (
             <ActivityIndicator />
