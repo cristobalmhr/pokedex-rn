@@ -26,7 +26,7 @@ const TabBarNavigation = () => {
         name={DASHBOARD_SCREEN}
         component={PrincipalStackNavigator}
         options={{
-          tabBarLabel: 'Inicio',
+          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
@@ -36,7 +36,7 @@ const TabBarNavigation = () => {
         name={SEARCH_SCREEN}
         component={SearchScreen}
         options={{
-          tabBarLabel: 'Buscar',
+          tabBarLabel: 'Search',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="magnify" color={color} size={26} />
           ),

@@ -1,4 +1,4 @@
-import {urlPokeApi} from './../utils/DataServices';
+import {urlPokeApi, urlPokeApiSpecies} from './../utils/DataServices';
 import axios from 'axios';
 
 /**
@@ -19,6 +19,69 @@ export const getPokemonList = (limit, offset) => {
       params: {
         limit: limit,
         offset: offset,
+      },
+    })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log('Error: ', error.message);
+        reject(error.message);
+      });
+  });
+};
+
+/**
+ * @description - Recuperar detalles de un pokemon
+ * @author Cristobal Martinez <cristobalhijar@hotmail.com>
+ * @version 1.0 - 13/08/2020
+ * @param idPokemon - Identificador del pokemon a recuperar
+ */
+export const getPokemonDetails = (idPokemon) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: `${urlPokeApi}/${idPokemon}`,
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log('Error: ', error.message);
+        reject(error.message);
+      });
+  });
+};
+
+export const getPokemonSpeciesDetails = (idPokemon) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: `${urlPokeApiSpecies}/${idPokemon}`,
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log('Error: ', error.message);
+        reject(error.message);
+      });
+  });
+};
+
+export const getEvolutionDetails = (url) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: url,
+      headers: {
+        'content-type': 'application/json',
       },
     })
       .then((response) => {

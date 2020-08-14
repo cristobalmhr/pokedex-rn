@@ -13,6 +13,7 @@ import PokemonRowsList from '../components/PokemonRowsList';
 import PokemonCardsList from '../components/PokemonCardsList';
 import {DETAILS_SCREEN} from './../utils/Screens';
 import ActivityIndicator from './../components/ActivityIndicator';
+
 /**
  * Pantalla de dashboard principal para mostrar lista de pokemon
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>
@@ -44,10 +45,11 @@ const DashboardScreen = ({navigation}) => {
     setListView(!listView);
   };
 
-  const showPokemonDetails = (index) => {
+  const showPokemonDetails = (index, name) => {
     console.log('index', index);
     navigation.navigate(DETAILS_SCREEN, {
       idPokemon: index,
+      name: name,
     });
   };
 

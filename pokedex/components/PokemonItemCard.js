@@ -9,7 +9,7 @@ import globalStyles from './../styles/globalStyles';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {urlPokeresImages, fileTypePokeresImages} from './../utils/DataServices';
 import {fistLetterToUperCase} from './../utils/General';
-
+ 
 /**
  * Componente para mostrar un pokemon en forma de card
  * @author Cristobal Martinez <cristobalhijar@hotmail.com>

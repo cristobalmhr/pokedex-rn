@@ -25,7 +25,8 @@ const PokemonCardsList = ({pokemonList, showPokemonDetails}) => {
         numColumns={3}
         horizontal={false}
         renderItem={({item, index}) => (
-          <TouchableOpacity onPress={() => showPokemonDetails(index + 1)}>
+          <TouchableOpacity
+            onPress={() => showPokemonDetails(index + 1, item.name)}>
             <PokemonItemCard item={item} index={index} />
           </TouchableOpacity>
         )}
